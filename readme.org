@@ -2,4 +2,18 @@
 ** Command: yarn init 
 *** This sets up the the package.json
 ** Command: git init
-*** This sets up git into this folder
+*** This sets up git into this folder 
+** Command: git add .
+*** This adds all the files in the current directory to the staging area
+** Command:  git config --global user.email "herman_wong_km@outlook.com" and git config --global user.name hermanwongkm
+*** sets up your git in the computer
+** Command: git commit -m " message"
+*** Commit your file with m representing message
+** Command: git remote add origin <link>
+*** This allows you to add the repo of github to this folder.
+**** Can type git remote -v to check if it is updated.
+** Command: git push origin master
+*** This pushes it to master 
+
+
+
