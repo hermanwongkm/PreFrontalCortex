@@ -19,3 +19,9 @@
 **** These will add to your package.json
 ** Create .gitIgnore
 *** Add files like node_modules so it will not be commited to your repo.
+
+* Post Setup 
+** I used https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide/blob/master/readmes/installs/PostgreSQL.md to set up psql
+** 
+
+
