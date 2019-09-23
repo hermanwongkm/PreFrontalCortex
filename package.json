@@ -1,0 +1,8 @@
+{
+  "name": "PrefrontalCortex",
+  "version": "1.0.0",
+  "description": "backend for braindump",
+  "main": "index.js",
+  "author": "Herman",
+  "license": "MIT"
+}

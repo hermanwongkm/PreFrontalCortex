@@ -1,0 +1,5 @@
+* Setting up
+** Command: yarn init 
+*** This sets up the the package.json
+** Command: git init
+*** This sets up git into this folder
