@@ -4,5 +4,11 @@
   "description": "backend for braindump",
   "main": "index.js",
   "author": "Herman",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "nodemon": "^1.19.2",
+    "pg": "^7.12.1"
+  }
 }

@@ -1,4 +1,4 @@
-* Setting up
+* Setting up initial repo for git
 ** Command: yarn init 
 *** This sets up the the package.json
 ** Command: git init
@@ -14,6 +14,8 @@
 **** Can type git remote -v to check if it is updated.
 ** Command: git push origin master
 *** This pushes it to master 
-
-
-
+** Adding depedencies
+*** yarn add express pg dotenv
+**** These will add to your package.json
+** Create .gitIgnore
+*** Add files like node_modules so it will not be commited to your repo.
