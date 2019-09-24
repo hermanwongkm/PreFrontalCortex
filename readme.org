@@ -1,3 +1,4 @@
+
 * Setting up initial repo for git
 ** Command: yarn init 
 *** This sets up the the package.json
@@ -22,6 +23,13 @@
 
 * Post Setup 
 ** I used https://github.com/michaeltreat/Windows-Subsystem-For-Linux-Setup-Guide/blob/master/readmes/installs/PostgreSQL.md to set up psql
-** 
-
-
+*** .env file is used to contain enviromental variables
+**** Add this .env file to your gitignore file, so your password never ends up on github.
+**** require('dotenv').config() loads the dotenv library and call the config() method.
+**** This will then load the keys in the .env file into process.env. You can print it out to check.
+**** process.env is a global variable created my nodejs at runtime. And it represent the state of the system enviroment.
+*** config.js is to used create the database connection
+* NODEJs/JAVASCRIPT
+** Export
+*** module.export is a special object included in every js file in Node.js app by default
+*** Export will exposes whatever you assigned to it as a module, be it a string object etc.

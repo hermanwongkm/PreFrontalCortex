@@ -1,8 +1,8 @@
-const express = require("express");
 const bodyParser = require("body-parser");
-const { pool } = require("./config");
+const { pool } = require("./config"); //This is called deconstructing, else you need to call pool.pool to use it.
 
-const app = express();
+const express = require("express"); //This returns a function, so express is a function. Indepth: this is the createApplication function
+const app = express(); //This creates an object called app with methods like get.
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,3 +24,4 @@ app.get("/", (request, response) => {
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server listening`);
 });
+//This returns a function, so express is a function. Indepth: this is the createApplication function
