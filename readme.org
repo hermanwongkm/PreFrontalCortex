@@ -33,3 +33,11 @@
 ** Export
 *** module.export is a special object included in every js file in Node.js app by default
 *** Export will exposes whatever you assigned to it as a module, be it a string object etc.
+
+
+* SQL
+
+** Commands:
+*** \dt to list all tables
+** Creating tables
+*** SERIAL will automatically generate unique integer numbers for this column.
