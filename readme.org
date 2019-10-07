@@ -34,10 +34,31 @@
 *** module.export is a special object included in every js file in Node.js app by default
 *** Export will exposes whatever you assigned to it as a module, be it a string object etc.
 
-
+* CSS
+** Justify-Content
+*** This is used for the main axis.
+** Align-Items
+*** This is used for cross axis.
+** Align-Content
+*** This is used for spacing 
+** Nav Bar - Seperate left and right 
+*** Put left and right each in a div and justify-content between. This will cause it to be front and end
+*** Then, within the right, you can add padding to it.
 * SQL
 
 ** Commands:
 *** \dt to list all tables
 ** Creating tables
 *** SERIAL will automatically generate unique integer numbers for this column.
+* React Front-end
+** React Router
+*** Wrap <BrowserRouter> around <App/> </BrowserRouter>
+**** This is because router expects to receive only a single child element. So you are working within this limitation and put everything in App.
+*** Then in App.js, you will have a switch - This allows you to group your routes together.
+**** Within the switch statement, you will have multiple <Route> Each leading to a different page.
+**** The switch statement will iterate over its children elements and only render the first that matches the current pathname.
+**** <Link> is used as a anchor tag, and to= is to change the path to that location which should be defined in <Route> already.
+**** by using path="/:ArticleTitle", we are using dyanmic route
+*****  here, articleTitle is the dynamic route params and will get passed into the component as props.  
+***** https://stackoverflow.com/questions/47245999/how-to-achieve-dynamic-routing-in-react-router-4
+
