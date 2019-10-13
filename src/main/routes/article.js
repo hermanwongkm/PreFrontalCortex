@@ -24,19 +24,29 @@ router.get("/:articleTitle", async (request, response, next) => {
     }
   );
 });
-
-router.post("/createPost", (request, response) => {
-  console.log(request.body.user.name);
-  const x = request.body.user.name;
+router.post("/createArticle", async (request, response, next) => {
+  var article = request.body;
+  const { postTitle, post } = article;
   pool.query(
-    "INSERT INTO postsdetails (post_text, post_id) VALUES ($1, $2)",
-    [x, 3],
+    "INSERT INTO posts (post_title) VALUES ($1) RETURNING *",
+    [postTitle],
     (error, results) => {
       if (error) {
         throw error;
       }
-      response.status(200).json(results.rows);
+      const postId = results.rows[0].post_id;
+      pool.query(
+        "INSERT INTO postsdetails (post_text, post_id) VALUES ($1, $2) RETURNING *",
+        [post, postId],
+        (error, results) => {
+          if (error) {
+            throw error;
+          }
+          response.status(200).json(results.rows);
+        }
+      );
     }
   );
 });
+
 module.exports = router;
