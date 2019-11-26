@@ -33,6 +33,7 @@
 ** Export
 *** module.export is a special object included in every js file in Node.js app by default
 *** Export will exposes whatever you assigned to it as a module, be it a string object etc.
+*** import {}  from "X" is known as named import. Where you can only have it of that name. The other is default import, and you can name it anything you want.
 
 * CSS
 ** Justify-Content
@@ -61,4 +62,85 @@
 **** by using path="/:ArticleTitle", we are using dyanmic route
 *****  here, articleTitle is the dynamic route params and will get passed into the component as props.  
 ***** https://stackoverflow.com/questions/47245999/how-to-achieve-dynamic-routing-in-react-router-4
+** React Props
+*** Props are used to pass data from one component to another, for dynamic data.
+*** This is done via <ComponentName propName ={data}/> and accessed via this.props.propName.
+*** Props are generally Read-Only.
+*** Child component will always re-render when the incoming props changes. This is why we sometimes pass state as props to child component.
+** Redux (yarn add redx react-redux)(where redux gives you the store but react-redux lets you connect pieces of the state to react components).
+*** Make the store available to entire app by wraping it with <Provider>. This is usually done at the ReactDOM.
+*** This allows your entire react app to be aware of the store.
+*** Reducers
+**** Simply a javascript function. Takes 2 parameters, current state and action.
+**** Create a rootReducer. 
+***** This will house your initial state.
+***** How will your reducer know when to generate the next state? It has to receive an action.
+*** Actions
+****  Dispatching an action means sending out a signal to the store
+**** IT is simply an object e.g. {Type: "ADD_ARTICLE", Ppayload:{title:"Hello World", id:1};
+****  It has 2 properties, type and payload.
+***** Type property tells you how the state should change. ANd this is required by redux.
+***** The payload property tells you what you should change. 
+**** Lastly, you wrap it within a function, abstracting object creation away.
+***** export function addArticle(payload){ return {type:"ADD_ARTICLE", payload} //This will automatically be payload: ...spreading out the payload properties.
+**** This action will eventually flow into the rootReducer and enter a switch case, and updates the state.
 
+     
+*** Flow:
+
+**** Store is created by importing createStore from redux, and accepts a root reducer.
+**** The root reducer is where everything will eventually end up and go into the store per se.
+**** Within the component, when you want to connect to the state, it is done through the connect function which takes at least 1 parameter. 
+**** Connect is used so you can plug any component into the redux store and pull data out when needed.
+**** Under the hood, provider uses react's context which ia s secret passageway to connect to every component and connects opens the door to this passageway.
+**** COnnect is written in the weird way, like not a typical function because it is caleld a higher-order function.
+*****  It returns a function when you call it. And then you call that function with a component that returns your wrapped component.
+**** What connect does is that it passes the entire state into MapStateToProps function.x
+***** This is done using mapStateToProps. 
+******  The objectyou return from mapStateToProps gets fed into your component as props.
+*** Dispatching
+**** It is important to note that connect itself also passes dispatch as well the state.
+***** So you could this.props.dispatch(actionCreator) in your component. 
+***** But you don't want to constantly type dispatch. So you use mapDispatchToProps.
+***** This will allow you be able to call the action creator immediately.
+***** How to do that? Basically you define MapDispatchToProps = { actionCreator1, actionCreator2};
+**** The store itself has a method called dispatch and it will call your reducer with that action. store.dispatch(type:"ADD_ARTICLE"})
+** Redux Middleware
+*** It is a function that is able to intercept and act accordingly before the action reaches the reducer. 
+*** It is a function which takes next as a parameter returning a function.
+
+**** Observer subscribes to a observable. 
+**** Observable, think of it as an array or a stream that populates over time,  will emit a sequence of items where the item can be any typem be it strings, integer, objects etc.
+**** You then use operator to yield meaningful functionality from this stream.
+**** It is a function that takes in a stream of data and return a modified stream of actions.
+**** The pipe method is for chaining observable operators
+*** RSJX Observable
+**** Data is actually pumped through your epics (which are set up once) under the hood. (Note that it goes through your reducer first).
+****  The stream of actions will always loop through your epics again. Even the action that you dispatched, just that it didnt match.
+****  Understanding Maps, mergemap and switchmaps
+***** In order to understand mergemap, we first need to understand map.
+***** Map https://blog.angular-university.io/rxjs-higher-order-mapping/
+****** Base map operator.  
+******* With an input stream of (1,2,3) and a function (x=>10*x)
+******* map(x=>10 * x)
+******* This will return 10,20,30.
+******* The values of the output stream is obtained by taking the values of the input stream and applying them to the function.
+***** Higher order observable Mapping
+****** Now, instead of just mapping to a plain value or object or array, we are going to map it into an observable
+****** This allows us to subscribe to it using rxjs functions.
+****** 
+***** MergeMap
+****** Mergemap does not rely on completeion. 
+****** Each value of the outer observable is being mapped to the inner function. mergeMap(Outer => Inner)
+****** The inner function will then need to output(emit) some/a observable which is also subcribed automatically by merge map.
+****** This obserable can then be piped on for further mapping.
+***** SwitchMap 
+***** Forking into a async process, you give it a function that 
+***** It allows concurrent access, e.g. a second fetch comes in, i throw away the first one so you will not receive stale data.
+***** However, if you are doing put you will do mergeMap, which is the same but won't throw away the old one and emit the output.
+*** RSJX FLow
+**** First you createEpicMiddleware, this allows you to crease an instance of redux-observable.
+*****  Next, this epicMiddleware have to take in your epic which allows this epic to listen to actions.
+****** Lastly, it will be attached as amiddleware to your store so it can listen.
+**** Next, you setup your epic. Think of this as a function like reducer, but outputs an action after your async call
+**** 
