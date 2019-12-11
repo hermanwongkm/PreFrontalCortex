@@ -52,25 +52,31 @@ router.get("/id/:articleId", async (request, response, next) => {
 
 router.post("/createArticle", async (request, response, next) => {
   var article = request.body;
+  var returnedResults = {};
   const { postTitle, post } = article;
   pool.query(
     "INSERT INTO posts (post_title) VALUES ($1) RETURNING *",
     [postTitle],
-    (error, results) => {``
+    (error, results) => {
+      ``;
       if (error) {
         throw error;
       }
       const postId = results.rows[0].id;
-      console.log(postId);
+      returnedResults.postId = postId;
+      returnedResults.postTitle = results.rows[0].post_title;
+      returnedResults.postCategory = results.rows[0].post_catergory;
       pool.query(
         "INSERT INTO postsdetails (post_text, post_id) VALUES ($1, $2) RETURNING *",
         [post, postId],
         (error, results) => {
-          console.log(results);
+          returnedResults.postDetailsId = results.rows[0].id;
+          returnedResults.postText = results.rows[0].post_text;
+          console.log(returnedResults);
           if (error) {
             throw error;
           }
-          response.status(200).json(results.rows);
+          response.status(200).json(returnedResults);
         }
       );
     }
