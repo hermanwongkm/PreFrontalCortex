@@ -63,16 +63,12 @@ router.post("/createArticle", async (request, response, next) => {
         throw error;
       }
       const postId = results.rows[0].id;
-      returnedResults.postId = postId;
-      returnedResults.postTitle = results.rows[0].post_title;
-      returnedResults.postCategory = results.rows[0].post_catergory;
+      returnedResults.post = results.rows[0];
       pool.query(
         "INSERT INTO postsdetails (post_text, post_id) VALUES ($1, $2) RETURNING *",
         [post, postId],
         (error, results) => {
-          returnedResults.postDetailsId = results.rows[0].id;
-          returnedResults.postText = results.rows[0].post_text;
-          console.log(returnedResults);
+          returnedResults.postDetails = results.rows[0];
           if (error) {
             throw error;
           }
