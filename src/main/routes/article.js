@@ -85,21 +85,27 @@ router.delete("/:id", async (request, response, next) => {
     if (error) {
       throw error;
     }
-    pool.query("DELETE FROM postsdetails where id = $1", [id], error => {
+    pool.query("SET CONSTRAINTS ALL DEFERRED", (error, results) => {
       if (error) {
         throw error;
       }
-      pool.query("DELETE FROM posts where id = $1", [id], error => {
+      pool.query("DELETE FROM postsdetails where post_id = $1", [id], error => {
         if (error) {
           throw error;
         }
-        pool.query("COMMIT", err => {
-          if (err) {
-            console.error("Error committing transaction", err.stack);
+        pool.query("DELETE FROM posts where id = $1", [id], error => {
+          if (error) {
+            throw error;
           }
+          pool.query("COMMIT", err => {
+            if (err) {
+              console.error("Error committing transaction", err.stack);
+            }
+          });
         });
       });
     });
+    con;
     response.status(200).json(results.rows);
   });
 });
