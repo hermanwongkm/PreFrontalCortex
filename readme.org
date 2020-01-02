@@ -1,3 +1,6 @@
+* Commands
+** To start the service, type sudo service postgresql start.
+** To conntect to postgres, type sudo -u postgres psql
 
 * Setting up initial repo for git
 ** Command: yarn init 
